@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
-     val filmesLiveData = MutableLiveData<List<Filme>>()
+     val moviesLiveData = MutableLiveData<List<Filme>>()
 
     fun getFilmesCoroutines(){
         CoroutineScope(Dispatchers.Main).launch{
@@ -20,7 +20,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                 repository.getFilmesCoroutines()
             }
 
-            filmesLiveData.value = filmes
+            moviesLiveData.value = filmes
 
         }
     }

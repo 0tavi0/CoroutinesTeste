@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
                 MainViewModel::class.java
             )
 
-        viewModel.filmesLiveData.observe(viewLifecycleOwner, Observer { filmes ->
+        viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer { filmes ->
             message.text = filmes[0].titulo
         })
 
