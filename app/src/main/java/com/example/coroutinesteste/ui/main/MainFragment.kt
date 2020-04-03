@@ -6,21 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.coroutinesteste.MainRepository
 import com.example.coroutinesteste.R
+import com.example.coroutinesteste.ui.main.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
-
     companion object {
         fun newInstance() = MainFragment()
     }
 
-   // private lateinit var viewModel: MainViewModel
-
-    private val viewModel : MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +27,10 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer { filmes ->
-            message.text = filmes[0].titulo
+            message.text = filmes[0].title
         })
-
-        viewModel.getFilmesCoroutines()
+        viewModel.getMovies()
     }
 
 
