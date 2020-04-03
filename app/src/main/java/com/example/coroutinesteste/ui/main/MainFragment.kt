@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.coroutinesteste.MainRepository
 import com.example.coroutinesteste.R
 import kotlinx.android.synthetic.main.main_fragment.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
@@ -17,7 +18,9 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+   // private lateinit var viewModel: MainViewModel
+
+    private val viewModel : MainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +31,6 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel =
-            ViewModelProvider(this, MainViewModel.MainViewModelFactory(MainRepository())).get(
-                MainViewModel::class.java
-            )
 
         viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer { filmes ->
             message.text = filmes[0].titulo

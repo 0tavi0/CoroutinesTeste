@@ -2,7 +2,6 @@ package com.example.coroutinesteste.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.coroutinesteste.Filme
 import com.example.coroutinesteste.MainRepository
 import kotlinx.coroutines.CoroutineScope
@@ -16,19 +15,10 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     fun getFilmesCoroutines(){
         CoroutineScope(Dispatchers.Main).launch{
-            val filmes = withContext(Dispatchers.Default) {
+            val movies = withContext(Dispatchers.Default) {
                 repository.getFilmesCoroutines()
             }
-
-            moviesLiveData.value = filmes
-
+            moviesLiveData.value = movies
         }
     }
-
-    class MainViewModelFactory(private val repository: MainRepository) : ViewModelProvider.Factory{
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MainViewModel(repository) as T
-        }
-    }
-
 }
