@@ -30,6 +30,10 @@ class MainFragment : Fragment() {
         viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer {
             message.text = it.total_results.toString()
         })
+
+        viewModel.listResult.observe(viewLifecycleOwner, Observer {
+            title_movie.text = it[0].original_title
+        })
         viewModel.getMovies()
     }
 
