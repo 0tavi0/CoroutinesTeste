@@ -27,8 +27,8 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer { filmes ->
-            message.text = filmes[0].title
+        viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer {
+            message.text = it.total_results.toString()
         })
         viewModel.getMovies()
     }
