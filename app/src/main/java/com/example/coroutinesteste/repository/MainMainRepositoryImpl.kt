@@ -1,12 +1,11 @@
 package com.example.coroutinesteste.repository
 
 import com.example.coroutinesteste.BuildConfig
-import com.example.coroutinesteste.BuildConfigHelper
-import com.example.coroutinesteste.domain.response.TrendingMoviesResponse
+import com.example.coroutinesteste.domain.response.MoviesResponse
 import com.example.coroutinesteste.service.ApiService
 
 class MainMainRepositoryImpl(private val apiService: ApiService) : MainRepository {
-    override suspend fun getMovies(): TrendingMoviesResponse {
+    override suspend fun getTrendingMovies(): MoviesResponse {
         return apiService.getTrendingMovies(BuildConfig.API_KEY)
 
 //    override suspend fun getMovies(): List<Movie> {
@@ -18,5 +17,9 @@ class MainMainRepositoryImpl(private val apiService: ApiService) : MainRepositor
 //            )
 //        }
 //    }
+    }
+
+    override suspend fun getPopularMovies(): MoviesResponse {
+        return apiService.getPopularMovies(BuildConfig.API_KEY, "pt-BR")
     }
 }

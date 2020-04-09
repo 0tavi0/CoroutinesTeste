@@ -27,6 +27,31 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        configListeners()
+        observersTrending()
+        observerPopularMovies()
+
+    }
+
+    private fun configListeners() {
+        btn_getPopularMovies.setOnClickListener {
+            getPopularMovies()
+        }
+
+        btn_getTrendingMovies.setOnClickListener {
+            getTrendingMovies()
+        }
+    }
+
+    private fun getPopularMovies() {
+        viewModel.getPopularMovies()
+    }
+
+    private fun getTrendingMovies() {
+        viewModel.getMovies()
+    }
+
+    private fun observersTrending() {
         viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer {
             message.text = it.total_results.toString()
         })
@@ -34,8 +59,16 @@ class MainFragment : Fragment() {
         viewModel.listResult.observe(viewLifecycleOwner, Observer {
             title_movie.text = it[0].original_title
         })
-        viewModel.getMovies()
     }
 
+    private fun observerPopularMovies() {
+        viewModel.listMoviesPopular.observe(viewLifecycleOwner, Observer {
+            title_movie.text = it[0].title
+        })
 
+        viewModel.moviesPopular.observe(viewLifecycleOwner, Observer {
+            message.text = it.page.toString()
+
+        })
+    }
 }

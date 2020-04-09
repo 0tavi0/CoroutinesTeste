@@ -1,7 +1,8 @@
 package com.example.coroutinesteste.repository
 
-import com.example.coroutinesteste.domain.response.TrendingMoviesResponse
+import com.example.coroutinesteste.domain.response.MoviesResponse
 
 interface MainRepository {
-    suspend fun getMovies(): TrendingMoviesResponse
+    suspend fun getTrendingMovies(): MoviesResponse
+    suspend fun getPopularMovies(): MoviesResponse
 }

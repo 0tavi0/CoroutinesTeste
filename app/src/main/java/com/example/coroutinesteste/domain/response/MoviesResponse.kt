@@ -2,7 +2,7 @@ package com.example.coroutinesteste.domain.response
 
 import com.example.coroutinesteste.domain.response.Result
 
-data class TrendingMoviesResponse(
+data class MoviesResponse(
     val page: Int,
     val results: List<Result>,
     val total_pages: Int,
