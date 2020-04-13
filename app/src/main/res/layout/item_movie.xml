@@ -2,56 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="380dp"
+    android:layout_width="190dp"
+    android:layout_height="300dp"
     android:background="#fff"
     android:orientation="vertical">
 
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/imagePoster"
-        android:layout_width="408dp"
-        android:layout_height="316dp"
+        android:layout_width="190dp"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
         android:src="@mipmap/ic_launcher"
-        android:scaleType = "centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/titleMovie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:maxLines="2"
-        android:text="Vingadores"
-        android:textSize="23sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePoster" />
 
-    <TextView
-        android:id="@+id/evaluationTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/msg_evaluation"
-        app:layout_constraintStart_toEndOf="@+id/titleOriginal"
-        app:layout_constraintTop_toBottomOf="@+id/titleMovie" />
-
-    <TextView
-        android:id="@+id/titleOriginal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:text="Avengers"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleMovie" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

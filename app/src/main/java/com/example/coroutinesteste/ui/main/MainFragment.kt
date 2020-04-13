@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coroutinesteste.R
-import com.example.coroutinesteste.domain.response.Result
 import com.example.coroutinesteste.ui.main.adapter.PopularMovieAdapter
 import com.example.coroutinesteste.ui.main.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -30,7 +29,6 @@ class MainFragment : Fragment() {
         observersTrending()
         observerPopularMovies()
         getPopularMovies()
-        configAdapter()
 
     }
 
@@ -67,7 +65,7 @@ class MainFragment : Fragment() {
             //title_movie.text = it[0].title
             it.let {
                 with(recycler){
-                    layoutManager = LinearLayoutManager(activity)
+                    layoutManager =  LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
                     setHasFixedSize(true)
                     adapter = PopularMovieAdapter(it)
                 }
@@ -80,11 +78,7 @@ class MainFragment : Fragment() {
         })
     }
 
-    private fun configAdapter() {
-    //    moviePopular = ArrayList()
-        recycler.layoutManager = LinearLayoutManager(activity)
-       // recycler.adapter = adapter
-    }
+
 
     companion object {
         fun newInstance() = MainFragment()
