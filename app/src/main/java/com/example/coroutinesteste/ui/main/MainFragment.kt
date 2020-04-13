@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coroutinesteste.R
+import com.example.coroutinesteste.domain.response.Result
+import com.example.coroutinesteste.ui.main.adapter.PopularMovieAdapter
 import com.example.coroutinesteste.ui.main.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private val viewModel: MainViewModel by viewModel()
 
     override fun onCreateView(
@@ -30,17 +29,19 @@ class MainFragment : Fragment() {
         configListeners()
         observersTrending()
         observerPopularMovies()
+        getPopularMovies()
+        configAdapter()
 
     }
 
     private fun configListeners() {
-        btn_getPopularMovies.setOnClickListener {
-            getPopularMovies()
-        }
-
-        btn_getTrendingMovies.setOnClickListener {
-            getTrendingMovies()
-        }
+//        btn_getPopularMovies.setOnClickListener {
+//            getPopularMovies()
+//        }
+//
+//        btn_getTrendingMovies.setOnClickListener {
+//            getTrendingMovies()
+//        }
     }
 
     private fun getPopularMovies() {
@@ -53,22 +54,39 @@ class MainFragment : Fragment() {
 
     private fun observersTrending() {
         viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer {
-            message.text = it.total_results.toString()
+          //  message.text = it.total_results.toString()
         })
 
         viewModel.listResult.observe(viewLifecycleOwner, Observer {
-            title_movie.text = it[0].original_title
+           // title_movie.text = it[0].original_title
         })
     }
 
     private fun observerPopularMovies() {
         viewModel.listMoviesPopular.observe(viewLifecycleOwner, Observer {
-            title_movie.text = it[0].title
+            //title_movie.text = it[0].title
+            it.let {
+                with(recycler){
+                    layoutManager = LinearLayoutManager(activity)
+                    setHasFixedSize(true)
+                    adapter = PopularMovieAdapter(it)
+                }
+            }
         })
 
         viewModel.moviesPopular.observe(viewLifecycleOwner, Observer {
-            message.text = it.page.toString()
+          //  message.text = it.page.toString()
 
         })
+    }
+
+    private fun configAdapter() {
+    //    moviePopular = ArrayList()
+        recycler.layoutManager = LinearLayoutManager(activity)
+       // recycler.adapter = adapter
+    }
+
+    companion object {
+        fun newInstance() = MainFragment()
     }
 }

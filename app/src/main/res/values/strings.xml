@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CoroutinesTeste</string>
+    <string name="msg_evaluation">%s opiniões</string>
+
 </resources>
