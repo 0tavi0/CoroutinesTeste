@@ -1,6 +1,7 @@
 package com.example.coroutinesteste.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class MainFragment : Fragment() {
         observersTrending()
         observerPopularMovies()
         getPopularMovies()
+        getTrendingMovies()
 
     }
 
@@ -53,6 +55,7 @@ class MainFragment : Fragment() {
     private fun observersTrending() {
         viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer {
           //  message.text = it.total_results.toString()
+            Log.e("Result", it.results.toString())
         })
 
         viewModel.listResult.observe(viewLifecycleOwner, Observer {

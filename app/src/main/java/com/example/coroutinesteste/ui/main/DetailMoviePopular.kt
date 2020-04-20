@@ -2,7 +2,9 @@ package com.example.coroutinesteste.ui.main
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import com.example.coroutinesteste.BuildConfigHelper
 import com.example.coroutinesteste.R
 import com.example.coroutinesteste.base.DetailMovieBase
@@ -22,7 +24,12 @@ class DetailMoviePopular : DetailMovieBase() {
     private fun configView() {
         tv_title_original.text = movie.title
         tv_description.text = movie.overview
-        img_details_movie_popular.setImageURI(BuildConfigHelper.BASE_URL_IMG + movie.backdrop_path)
+        if (movie.vote_average <= 6.0) {
+            tv_vote_average.setTextColor(Color.RED)
+        }
+        tv_vote_average.text = movie.vote_average.toString()
+        tv_vote_count.text = movie.vote_count.toString()
+        img_details_movie_popular.setImageURI("https://image.tmdb.org/t/p/w500" + movie.backdrop_path)
     }
 
     companion object {
