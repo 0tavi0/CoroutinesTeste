@@ -6,9 +6,17 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("trending/movie/day")
-    suspend fun getTrendingMovies(@Query("api_key") query : String): MoviesResponse
+    suspend fun getTrendingMovies(
+        @Query("api_key") query: String,
+        @Query("language") language: String,
+        @Query("media_type") media_type: String,
+        @Query("time_window") time_window: String
+    ): MoviesResponse
 
     @GET("movie/popular")
-    suspend fun getPopularMovies(@Query("api_key") query : String, @Query("language") language : String): MoviesResponse
+    suspend fun getPopularMovies(
+        @Query("api_key") query: String,
+        @Query("language") language: String
+    ): MoviesResponse
 
 }

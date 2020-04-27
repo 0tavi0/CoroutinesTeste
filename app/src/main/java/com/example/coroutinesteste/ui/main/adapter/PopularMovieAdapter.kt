@@ -11,7 +11,7 @@ import com.example.coroutinesteste.domain.response.Result
 import com.example.coroutinesteste.ui.main.DetailMoviePopular
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class PopularMovieAdapter(private val listMoviePopular: List<Result>) :
+open class PopularMovieAdapter(private val listMoviePopular: List<Result>) :
     RecyclerView.Adapter<PopularMovieAdapter.ViewHolder>() {
 
 

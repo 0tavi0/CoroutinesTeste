@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.coroutinesteste.R
 import com.example.coroutinesteste.ui.main.adapter.PopularMovieAdapter
+import com.example.coroutinesteste.ui.main.adapter.TrendingMovieAdapter
 import com.example.coroutinesteste.ui.main.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -49,7 +52,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getTrendingMovies() {
-        viewModel.getMovies()
+        viewModel.getTrendingMovies()
     }
 
     private fun observersTrending() {
@@ -58,16 +61,21 @@ class MainFragment : Fragment() {
             Log.e("Result", it.results.toString())
         })
 
-        viewModel.listResult.observe(viewLifecycleOwner, Observer {
-           // title_movie.text = it[0].original_title
-        })
+        viewModel.listMoviesTrendingResult.observe(viewLifecycleOwner, Observer {
+            it.let {
+                with(recycler_trending){
+                    layoutManager =  LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+                    setHasFixedSize(true)
+                    adapter = TrendingMovieAdapter(it)
+                }
+            }        })
     }
 
     private fun observerPopularMovies() {
         viewModel.listMoviesPopular.observe(viewLifecycleOwner, Observer {
             //title_movie.text = it[0].title
             it.let {
-                with(recycler){
+                with(recycler_popular){
                     layoutManager =  LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
                     setHasFixedSize(true)
                     adapter = PopularMovieAdapter(it)
@@ -77,6 +85,8 @@ class MainFragment : Fragment() {
 
         viewModel.moviesPopular.observe(viewLifecycleOwner, Observer {
           //  message.text = it.page.toString()
+
+
 
         })
     }

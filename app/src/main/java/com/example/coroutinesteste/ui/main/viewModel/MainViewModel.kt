@@ -16,12 +16,12 @@ class MainViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewMo
     private val _moviesLiveData = MutableLiveData<MoviesResponse>()
     val moviesLiveData: LiveData<MoviesResponse> get() = _moviesLiveData
     private val _listResultTrendingMovies = MutableLiveData<List<Result>>()
-    val listResult : LiveData<List<Result>> get() = _listResultTrendingMovies
+    val listMoviesTrendingResult : LiveData<List<Result>> get() = _listResultTrendingMovies
     val moviesPopular = MutableLiveData<MoviesResponse>()
     val listMoviesPopular = MutableLiveData<List<Result>>()
 
 
-    fun getMovies() {
+    fun getTrendingMovies() {
         CoroutineScope(Dispatchers.Main).launch {
             val movies = withContext(Dispatchers.Default) {
                 repositoryImpl.getTrendingMovies()
