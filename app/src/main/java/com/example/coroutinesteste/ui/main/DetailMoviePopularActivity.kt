@@ -4,14 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import com.example.coroutinesteste.BuildConfigHelper
 import com.example.coroutinesteste.R
 import com.example.coroutinesteste.base.DetailMovieBase
 import com.example.coroutinesteste.domain.response.Result
 import kotlinx.android.synthetic.main.detail_popular_movie_activity.*
 
-class DetailMoviePopular : DetailMovieBase() {
+class DetailMoviePopularActivity : DetailMovieBase() {
     override var layout = R.layout.detail_popular_movie_activity
     lateinit var movie: Result
 
@@ -37,7 +35,7 @@ class DetailMoviePopular : DetailMovieBase() {
             "com.example.coroutinesteste.ui.main.DetailMoviePopular.POPULAR_MOVIE"
 
         fun startActivity(context: Context, result: Result) {
-            val intent = Intent(context, DetailMoviePopular::class.java)
+            val intent = Intent(context, DetailMoviePopularActivity::class.java)
             intent.putExtra(POPULAR_MOVIE, result)
             context.startActivity(intent)
         }

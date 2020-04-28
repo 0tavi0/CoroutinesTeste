@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coroutinesteste.BuildConfigHelper
 import com.example.coroutinesteste.R
 import com.example.coroutinesteste.domain.response.Result
-import com.example.coroutinesteste.ui.main.DetailMoviePopular
+import com.example.coroutinesteste.ui.main.DetailMoviePopularActivity
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 open class PopularMovieAdapter(private val listMoviePopular: List<Result>) :
@@ -27,7 +27,7 @@ open class PopularMovieAdapter(private val listMoviePopular: List<Result>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindView(listMoviePopular[position])
         holder.itemView.setOnClickListener {
-            DetailMoviePopular.startActivity(holder.itemView.context, listMoviePopular[position])
+            DetailMoviePopularActivity.startActivity(holder.itemView.context, listMoviePopular[position])
         }
     }
 
