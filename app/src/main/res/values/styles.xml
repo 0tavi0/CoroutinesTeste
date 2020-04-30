@@ -15,4 +15,21 @@
         <item name="android:lineSpacingExtra">6sp</item>
         <item name="android:textColor">@color/black_body_title</item>
     </style>
+
+    <style name="SecondaryButtonLabel">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/background_secondary_rounded</item>
+        <item name="android:textColor">#c01324</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Body">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black_body_title</item>
+    </style>
+
 </resources>

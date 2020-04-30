@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">CoroutinesTeste</string>
+    <string name="app_name">Movies Coroutines</string>
     <string name="msg_evaluation">%s opiniões</string>
     <string name="tv_movies_populares">Filmes Populares</string>
     <string name="tv_trending_week">Tendências Semanais</string>
+    <string name="bt_close_error">Fechar</string>
+    <string name="image_description">Image</string>
+
 
 </resources>
