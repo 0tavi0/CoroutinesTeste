@@ -5,6 +5,9 @@
     <string name="tv_trending_week">Tendências Semanais</string>
     <string name="bt_close_error">Fechar</string>
     <string name="image_description">Image</string>
+    <string name="et_search">Buscar</string>
+    <string name="title_erro_dialog">Ops</string>
+    <string name="erro_field_empty">Campo vazio</string>
 
 
 </resources>

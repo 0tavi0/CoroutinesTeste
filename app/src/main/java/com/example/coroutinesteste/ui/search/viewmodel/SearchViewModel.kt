@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.coroutinesteste.ResultWrapper
 import com.example.coroutinesteste.domain.response.MoviesResponse
+import com.example.coroutinesteste.domain.response.Result
 import com.example.coroutinesteste.repository.MainMainRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,10 +13,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SearchViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewModel() {
-    private val _resultSearch = MutableLiveData<ResultWrapper<MoviesResponse>>()
-    val resultSearch: LiveData<ResultWrapper<MoviesResponse>> = _resultSearch
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
+    private val _listResultSearch = MutableLiveData<List<Result>>()
+    val listMoviesTrendingResult : LiveData<List<Result>> = _listResultSearch
 
     fun searchMovie(query: String) {
         CoroutineScope(Dispatchers.Main).launch {
@@ -25,7 +26,7 @@ class SearchViewModel(private val repositoryImpl: MainMainRepositoryImpl) : View
             when (moviesResult) {
                 is ResultWrapper.NetworkError -> showNetworkError()
                 is ResultWrapper.GenericError -> showGenericError(moviesResult)
-                is ResultWrapper.Success -> _resultSearch.value = moviesResult
+                is ResultWrapper.Success -> showSuccess(moviesResult.value)
             }
         }
     }
@@ -33,12 +34,19 @@ class SearchViewModel(private val repositoryImpl: MainMainRepositoryImpl) : View
 
     private fun showGenericError(error: ResultWrapper.GenericError) {
         when (error.code) {
-            422 -> _errorMessage.value = "${error.code} campo em branco"
+            422 -> _errorMessage.value = "${error.code} - Entidade não processável"
+            401 -> _errorMessage.value = "${error.code} - Chave de API inválida"
+            404 -> _errorMessage.value = "${error.code} - O recurso que você solicitou não pôde ser encontrado."
+            else -> _errorMessage.value = "${error.code} - Erro Genérico"
         }
     }
 
     private fun showNetworkError() {
-        _errorMessage.value = "error Netowork"
+        _errorMessage.value = "error Network"
+    }
+
+    private fun showSuccess(result: MoviesResponse){
+     _listResultSearch.value = result.results
     }
 
 }
