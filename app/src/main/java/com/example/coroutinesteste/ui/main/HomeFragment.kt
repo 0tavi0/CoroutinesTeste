@@ -26,22 +26,10 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        configListeners()
         observersTrending()
         observerPopularMovies()
         getPopularMovies()
         getTrendingMovies()
-
-    }
-
-    private fun configListeners() {
-//        btn_getPopularMovies.setOnClickListener {
-//            getPopularMovies()
-//        }
-//
-//        btn_getTrendingMovies.setOnClickListener {
-//            getTrendingMovies()
-//        }
     }
 
     private fun getPopularMovies() {
@@ -53,10 +41,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun observersTrending() {
-        viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer {
-            //  message.text = it.total_results.toString()
-        })
-
         viewModel.listMoviesTrendingResult.observe(viewLifecycleOwner, Observer {
             it.let {
                 with(recycler_trending) {
@@ -81,16 +65,5 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-
-        viewModel.moviesPopular.observe(viewLifecycleOwner, Observer {
-            //  message.text = it.page.toString()
-
-
-        })
-    }
-
-
-    companion object {
-        fun newInstance() = HomeFragment()
     }
 }
