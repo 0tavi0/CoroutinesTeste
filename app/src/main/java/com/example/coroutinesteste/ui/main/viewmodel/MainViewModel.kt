@@ -18,10 +18,10 @@ class MainViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewMo
     private val _listMoviesPopular = MutableLiveData<List<Result>>()
     val listMoviesPopular:LiveData<List<Result>> = _listMoviesPopular
 
-    fun getPopularMovies() {
+    fun getPopularMovies(page:Int) {
         CoroutineScope(Dispatchers.Main).launch {
             val popularMovies = withContext(Dispatchers.Default) {
-                repositoryImpl.getPopularMovies()
+                repositoryImpl.getPopularMovies(page)
             }
             _listMoviesPopular.value = popularMovies.results
         }

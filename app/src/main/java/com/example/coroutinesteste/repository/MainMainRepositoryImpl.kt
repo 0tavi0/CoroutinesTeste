@@ -21,8 +21,8 @@ class MainMainRepositoryImpl(
         return apiService.getTrendingMovies(BuildConfig.API_KEY, "pt-BR", "all", "week")
     }
 
-    override suspend fun getPopularMovies(): MoviesResponse {
-        return apiService.getPopularMovies(BuildConfig.API_KEY, "pt-BR")
+    override suspend fun getPopularMovies(page:Int): MoviesResponse {
+        return apiService.getPopularMovies(BuildConfig.API_KEY, page,"pt-BR")
     }
 
     //    override suspend fun searchMovies(query:String): MoviesResponse {

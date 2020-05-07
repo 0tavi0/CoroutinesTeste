@@ -5,6 +5,6 @@ import com.example.coroutinesteste.domain.response.MoviesResponse
 
 interface MainRepository {
     suspend fun getTrendingMovies(): MoviesResponse
-    suspend fun getPopularMovies(): MoviesResponse
+    suspend fun getPopularMovies(page:Int): MoviesResponse
     suspend fun searchMovies(query:String): ResultWrapper<MoviesResponse>
 }

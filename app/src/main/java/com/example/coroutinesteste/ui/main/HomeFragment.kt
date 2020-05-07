@@ -16,6 +16,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
     private val viewModel: MainViewModel by viewModel()
+    private var page = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getPopularMovies() {
-        viewModel.getPopularMovies()
+        viewModel.getPopularMovies(page)
     }
 
     private fun getTrendingMovies() {
