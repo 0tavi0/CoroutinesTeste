@@ -14,4 +14,9 @@
         android:id="@+id/mainFragment2"
         android:name="com.example.coroutinesteste.ui.main.HomeFragment"
         android:label="MainFragment" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.coroutinesteste.ui.category.CategoryFragment"
+        android:label="category_fragment"
+        tools:layout="@layout/category_fragment" />
 </navigation>

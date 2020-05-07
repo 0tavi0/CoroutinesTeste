@@ -4,7 +4,11 @@
     <item
         android:id="@+id/mainFragment2"
         android:icon="@drawable/ic_movie"
-        android:title="Filmes" />
+        android:title="Home" />
+    <item
+        android:id="@+id/categoryFragment"
+        android:icon="@drawable/ic_category"
+        android:title="Categorias" />
     <item
         android:id="@+id/searchFragment"
         android:icon="@drawable/ic_search"

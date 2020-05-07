@@ -1,6 +1,7 @@
 package com.example.coroutinesteste.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ class HomeFragment : Fragment() {
         observerPopularMovies()
         getPopularMovies()
         getTrendingMovies()
+        errorObservers()
     }
 
     private fun getPopularMovies() {
@@ -65,6 +67,12 @@ class HomeFragment : Fragment() {
                     adapter = PopularMovieAdapter(it)
                 }
             }
+        })
+    }
+
+    private fun errorObservers() {
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
+            Log.e("erro",""+it)
         })
     }
 }
