@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.home.MainActivity">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/img_details_movie_popular"

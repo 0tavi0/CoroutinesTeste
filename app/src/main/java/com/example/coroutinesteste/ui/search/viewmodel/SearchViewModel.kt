@@ -3,7 +3,7 @@ package com.example.coroutinesteste.ui.search.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.coroutinesteste.ResultWrapper
+import com.example.coroutinesteste.base.ResultWrapper
 import com.example.coroutinesteste.domain.response.MoviesResponse
 import com.example.coroutinesteste.domain.response.Result
 import com.example.coroutinesteste.repository.MainMainRepositoryImpl

@@ -2,7 +2,7 @@ package com.example.coroutinesteste.repository
 
 import android.util.Log
 import com.example.coroutinesteste.BuildConfig
-import com.example.coroutinesteste.ResultWrapper
+import com.example.coroutinesteste.base.ResultWrapper
 import com.example.coroutinesteste.domain.response.ErrorResponse
 import com.example.coroutinesteste.domain.response.MoviesResponse
 import com.example.coroutinesteste.service.ApiService
@@ -25,7 +25,7 @@ class MainMainRepositoryImpl(
         return safeApiCall(dispatcher) {
             apiService.getPopularMovies(
                 BuildConfig.API_KEY,
-                1,
+                page,
                 "pt-BR"
             )
         }

@@ -12,7 +12,7 @@
         tools:layout="@layout/search_fragment" />
     <fragment
         android:id="@+id/mainFragment2"
-        android:name="com.example.coroutinesteste.ui.main.HomeFragment"
+        android:name="com.example.coroutinesteste.ui.home.HomeFragment"
         android:label="MainFragment" />
     <fragment
         android:id="@+id/categoryFragment"

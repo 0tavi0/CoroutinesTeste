@@ -1,4 +1,4 @@
-package com.example.coroutinesteste.ui.main
+package com.example.coroutinesteste.ui.home
 
 import android.content.Context
 import android.content.Intent

@@ -19,7 +19,6 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("language") language: String
     ): MoviesResponse
-
     @GET("search/movie")
     suspend fun searchMovie(
         @Query("api_key") api_key: String,

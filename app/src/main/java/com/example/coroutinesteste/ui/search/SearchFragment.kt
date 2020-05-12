@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coroutinesteste.R
 import com.example.coroutinesteste.base.MessageDialogFragment
-import com.example.coroutinesteste.ui.search.adapter.SearchAdapter
 import com.example.coroutinesteste.ui.search.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.search_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -39,7 +38,7 @@ class SearchFragment : Fragment() {
                     layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     setHasFixedSize(true)
-                    adapter = SearchAdapter(it)
+                 //   adapter = SearchAdapter(it)
                 }
             }
         })

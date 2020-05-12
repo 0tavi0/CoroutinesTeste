@@ -1,6 +1,6 @@
 package com.example.coroutinesteste.repository
 
-import com.example.coroutinesteste.ResultWrapper
+import com.example.coroutinesteste.base.ResultWrapper
 import com.example.coroutinesteste.domain.response.MoviesResponse
 
 interface MainRepository {
