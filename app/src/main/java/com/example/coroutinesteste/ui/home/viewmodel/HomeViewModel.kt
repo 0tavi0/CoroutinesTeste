@@ -1,6 +1,5 @@
 package com.example.coroutinesteste.ui.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,10 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewModel() {
+class HomeViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewModel() {
 
-    private val _listResultTrendingMovies = MutableLiveData<List<Result>>()
-    val listMoviesTrendingResult: LiveData<List<Result>> get() = _listResultTrendingMovies
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -24,9 +21,15 @@ class MainViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewMo
     private var currentRequestResponse: MoviesResponse? = null
     private val movies = ArrayList<Result>()
     private val requestResponse = MutableLiveData<ResultWrapper<MoviesResponse>>()
-
     val responseLiveData: LiveData<ResultWrapper<MoviesResponse>>
         get() = requestResponse
+
+    private val moviesTrending = ArrayList<Result>()
+    private val requestResponseTrending = MutableLiveData<ResultWrapper<MoviesResponse>>()
+    val responseTrending: LiveData<ResultWrapper<MoviesResponse>>
+        get() = requestResponseTrending
+    private var currentRequestResponseTrending: MoviesResponse? = null
+
 
     fun getPopularMovies(page: Int) {
         requestResponse.value = ResultWrapper.loading()
@@ -52,12 +55,25 @@ class MainViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewMo
         return movies[position]
     }
 
+    fun moviesTrendingSize(): Int {
+        return moviesTrending.size
+    }
+
+    fun movieTrendingItem(position: Int): Result {
+        return moviesTrending[position]
+    }
+
 
     fun fetchMoreMovies(lastVisibleItem: Int) {
         if (!shouldRefresh(lastVisibleItem)) return
         val page = currentRequestResponse!!.page
-
         getPopularMovies(page + 1)
+    }
+
+    fun fetchMoreMoviesTrending(lastVisibleItem: Int) {
+        if (!shouldRefresh(lastVisibleItem)) return
+        val page = currentRequestResponseTrending!!.page
+        getTrendingMovies(page + 1)
     }
 
     private fun shouldRefresh(lastVisibleItem: Int): Boolean {
@@ -77,12 +93,18 @@ class MainViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewMo
         }
     }
 
-    fun getTrendingMovies() {
+    fun getTrendingMovies(page: Int) {
         CoroutineScope(Dispatchers.Main).launch {
-            val movies = withContext(Dispatchers.Default) {
-                repositoryImpl.getTrendingMovies()
+            val moviesTrending = withContext(Dispatchers.Default) {
+                repositoryImpl.getTrendingMovies(page)
             }
-            _listResultTrendingMovies.value = movies.results
+            when (moviesTrending) {
+                is ResultWrapper.NetworkError -> showNetworkError()
+                is ResultWrapper.Success -> showSuccessMoviesTrending(moviesTrending.value)
+                is ResultWrapper.GenericError -> showGenericError(moviesTrending)
+                is ResultWrapper.Error -> requestResponse.value =
+                    ResultWrapper.error(moviesTrending.errorMessage)
+            }
         }
     }
 
@@ -101,13 +123,15 @@ class MainViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewMo
 
     private fun showSuccess(result: MoviesResponse) {
         movies.addAll(result.results)
-        for (i in movies) {
-            Log.e("Original Title", "" + i.original_title)
-        }
-        Log.e("Original Title", "" + movies.size.toString())
-
         requestResponse.value = ResultWrapper.Success(result)
         currentRequestResponse = result
+
+    }
+
+    private fun showSuccessMoviesTrending(result: MoviesResponse) {
+        moviesTrending.addAll(result.results)
+        requestResponseTrending.value = ResultWrapper.Success(result)
+        currentRequestResponseTrending = result
 
     }
 

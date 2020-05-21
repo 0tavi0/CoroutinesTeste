@@ -9,10 +9,10 @@ import com.example.coroutinesteste.BuildConfigHelper
 import com.example.coroutinesteste.R
 import com.example.coroutinesteste.domain.response.Result
 import com.example.coroutinesteste.ui.home.DetailMoviePopularActivity
-import com.example.coroutinesteste.ui.home.viewmodel.MainViewModel
+import com.example.coroutinesteste.ui.home.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-open class PopularMovieAdapter(private val viewModel : MainViewModel) :
+open class PopularMovieAdapter(private val viewModel : HomeViewModel) :
     RecyclerView.Adapter<PopularMovieAdapter.ViewHolder>() {
 
 

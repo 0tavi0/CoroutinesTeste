@@ -17,8 +17,13 @@ class MainMainRepositoryImpl(
     private val apiService: ApiService,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : MainRepository {
-    override suspend fun getTrendingMovies(): MoviesResponse {
-        return apiService.getTrendingMovies(BuildConfig.API_KEY, "pt-BR", "all", "week")
+    override suspend fun getTrendingMovies(page: Int): ResultWrapper<MoviesResponse> {
+        return safeApiCall(dispatcher) {
+            apiService.getTrendingMovies(
+                BuildConfig.API_KEY,
+                "pt-BR"
+            )
+        }
     }
 
     override suspend fun getPopularMovies(page: Int): ResultWrapper<MoviesResponse> {
