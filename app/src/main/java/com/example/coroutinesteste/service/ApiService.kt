@@ -1,5 +1,6 @@
 package com.example.coroutinesteste.service
 
+import com.example.coroutinesteste.domain.response.GenreResponse
 import com.example.coroutinesteste.domain.response.MoviesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -23,4 +24,10 @@ interface ApiService {
         @Query("language") language: String,
         @Query("query") querySearch: String
     ) : MoviesResponse
+
+    @GET("genre/movie/list")
+    suspend fun getGenres(
+        @Query("api_key") api_key: String,
+        @Query("language") language: String
+    ) : GenreResponse
 }

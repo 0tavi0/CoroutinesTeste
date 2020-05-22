@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.coroutinesteste.BuildConfig
 import com.example.coroutinesteste.base.ResultWrapper
 import com.example.coroutinesteste.domain.response.ErrorResponse
+import com.example.coroutinesteste.domain.response.GenreResponse
 import com.example.coroutinesteste.domain.response.MoviesResponse
 import com.example.coroutinesteste.service.ApiService
 import com.google.gson.Gson
@@ -42,6 +43,15 @@ class MainMainRepositoryImpl(
                 BuildConfig.API_KEY,
                 "pt-BR",
                 query
+            )
+        }
+    }
+
+    override suspend fun getGenres(): ResultWrapper<GenreResponse> {
+        return safeApiCall(dispatcher) {
+            apiService.getGenres(
+                BuildConfig.API_KEY,
+                "pt-BR"
             )
         }
     }
