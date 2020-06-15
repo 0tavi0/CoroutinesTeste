@@ -4,6 +4,7 @@ import com.example.coroutinesteste.repository.MainMainRepositoryImpl
 import com.example.coroutinesteste.service.ApiService
 import com.example.coroutinesteste.service.ServiceGenerator.provideOkHttpClient
 import com.example.coroutinesteste.service.ServiceGenerator.provideRetrofit
+import com.example.coroutinesteste.ui.category.viewmodel.CategoryMoviesViewModel
 import com.example.coroutinesteste.ui.category.viewmodel.CategoryViewModel
 import com.example.coroutinesteste.ui.home.viewmodel.HomeViewModel
 import com.example.coroutinesteste.ui.search.viewmodel.SearchViewModel
@@ -19,5 +20,6 @@ object AppModules {
         viewModel { HomeViewModel(get()) }
         viewModel { SearchViewModel(get()) }
         viewModel { CategoryViewModel(get()) }
+        viewModel { CategoryMoviesViewModel(get()) }
     }
 }

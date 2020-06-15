@@ -9,4 +9,5 @@ interface MainRepository {
     suspend fun getPopularMovies(page:Int): ResultWrapper<MoviesResponse>
     suspend fun searchMovies(query:String): ResultWrapper<MoviesResponse>
     suspend fun getGenres(): ResultWrapper<GenreResponse>
+    suspend fun getMoviesGenres(id:Int): ResultWrapper<MoviesResponse>
 }

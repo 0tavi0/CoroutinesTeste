@@ -1,9 +1,9 @@
 package com.example.coroutinesteste.ui.category.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.coroutinesteste.base.AdapterViewModel
 import com.example.coroutinesteste.base.ResultWrapper
 import com.example.coroutinesteste.domain.response.GenreResponse
 import com.example.coroutinesteste.domain.response.Genres
@@ -13,10 +13,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CategoryViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewModel() {
+class CategoryViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewModel(),
+    AdapterViewModel<Genres> {
     private val _genresResponse = MutableLiveData<ResultWrapper<GenreResponse>>()
     val genreResponse: LiveData<ResultWrapper<GenreResponse>> = _genresResponse
-    val listGenres = ArrayList<Genres>()
+
+    private val _listGenres = MutableLiveData<List<Genres>>()
+
+    override val items: MutableLiveData<List<Genres>>
+        get() = _listGenres
 
     fun getGenres() {
         CoroutineScope(Dispatchers.Main).launch {
@@ -45,6 +50,8 @@ class CategoryViewModel(private val repositoryImpl: MainMainRepositoryImpl) : Vi
 //        listGenres.add(result.list)
 //        Log.e("Lista", ""+listGenres.size)
         _genresResponse.value = ResultWrapper.Success(result)
+        _listGenres.value = result.genres
     }
+
 
 }

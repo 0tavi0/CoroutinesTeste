@@ -30,4 +30,11 @@ interface ApiService {
         @Query("api_key") api_key: String,
         @Query("language") language: String
     ) : GenreResponse
+
+    @GET("discover/movie")
+    suspend fun getMoviesGenres(
+        @Query("api_key") api_key: String,
+        @Query("language") language: String,
+        @Query("with_genres") with_genres: Int
+    ) : MoviesResponse
 }

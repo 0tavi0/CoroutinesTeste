@@ -56,6 +56,16 @@ class MainMainRepositoryImpl(
         }
     }
 
+    override suspend fun getMoviesGenres(id: Int): ResultWrapper<MoviesResponse> {
+        return safeApiCall(dispatcher) {
+            apiService.getMoviesGenres(
+                BuildConfig.API_KEY,
+                "pt-BR",
+                id
+            )
+        }
+    }
+
 
     private suspend fun <T> safeApiCall(
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
