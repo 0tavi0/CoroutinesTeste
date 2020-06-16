@@ -3,20 +3,22 @@ package com.example.coroutinesteste.ui.category.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.coroutinesteste.base.AdapterViewModel
 import com.example.coroutinesteste.base.ResultWrapper
-import com.example.coroutinesteste.domain.response.GenreResponse
 import com.example.coroutinesteste.domain.response.MoviesResponse
+import com.example.coroutinesteste.domain.response.Result
 import com.example.coroutinesteste.repository.MainMainRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CategoryMoviesViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewModel() {
+class CategoryMoviesViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewModel(), AdapterViewModel<Result> {
 
     private val _genresMovieResponse = MutableLiveData<ResultWrapper<MoviesResponse>>()
     val genreMovieResponse: LiveData<ResultWrapper<MoviesResponse>> = _genresMovieResponse
-
+    private val _listItems = MutableLiveData<List<Result>>()
+    override val items: MutableLiveData<List<Result>> get() =  _listItems
 
     fun getMoviesGenres(id:Int){
         CoroutineScope(Dispatchers.Main).launch {
@@ -33,7 +35,7 @@ class CategoryMoviesViewModel(private val repositoryImpl: MainMainRepositoryImpl
 
     private fun showGenres(value: MoviesResponse) {
         _genresMovieResponse.value = ResultWrapper.Success(value)
-
+        _listItems.value = value.results
     }
 
     private fun showGenericError(error: ResultWrapper.GenericError) {

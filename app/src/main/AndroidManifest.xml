@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.home.DetailMoviePopularActivity" />
+        <activity android:name=".ui.category.DetailsMoviesActivity" />
     </application>
 
 </manifest>

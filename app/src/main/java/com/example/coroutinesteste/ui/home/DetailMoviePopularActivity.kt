@@ -9,14 +9,18 @@ import com.example.coroutinesteste.base.DetailMovieBase
 import com.example.coroutinesteste.domain.response.Result
 import kotlinx.android.synthetic.main.detail_popular_movie_activity.*
 
-class DetailMoviePopularActivity : DetailMovieBase() {
+open class DetailMoviePopularActivity : DetailMovieBase() {
     override var layout = R.layout.detail_popular_movie_activity
     lateinit var movie: Result
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        movie = intent!!.extras!!.getSerializable(POPULAR_MOVIE) as Result
+        movie = intent!!.extras!!.getSerializable(result()) as Result
         configView()
+    }
+
+    protected open fun result() : String{
+        return POPULAR_MOVIE
     }
 
     private fun configView() {
