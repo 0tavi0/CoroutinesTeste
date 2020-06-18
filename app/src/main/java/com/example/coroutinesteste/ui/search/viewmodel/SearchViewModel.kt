@@ -16,7 +16,7 @@ class SearchViewModel(private val repositoryImpl: MainMainRepositoryImpl) : View
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
     private val _listResultSearch = MutableLiveData<List<Result>>()
-    val listMoviesTrendingResult : LiveData<List<Result>> = _listResultSearch
+    val listMoviesTrendingResult: LiveData<List<Result>> = _listResultSearch
 
     fun searchMovie(query: String) {
         CoroutineScope(Dispatchers.Main).launch {
@@ -36,7 +36,9 @@ class SearchViewModel(private val repositoryImpl: MainMainRepositoryImpl) : View
         when (error.code) {
             422 -> _errorMessage.value = "${error.code} - Entidade não processável"
             401 -> _errorMessage.value = "${error.code} - Chave de API inválida"
-            404 -> _errorMessage.value = "${error.code} - O recurso que você solicitou não pôde ser encontrado."
+            404 -> _errorMessage.value =
+                "${error.code} - O recurso que você solicitou não pôde ser encontrado."
+            null -> _errorMessage.value = "Erro Genérico"
             else -> _errorMessage.value = "${error.code} - Erro Genérico"
         }
     }
@@ -45,10 +47,9 @@ class SearchViewModel(private val repositoryImpl: MainMainRepositoryImpl) : View
         _errorMessage.value = "error Network"
     }
 
-    private fun showSuccess(result: MoviesResponse){
-     _listResultSearch.value = result.results
+    private fun showSuccess(result: MoviesResponse) {
+        _listResultSearch.value = result.results
     }
-
 }
 
 
