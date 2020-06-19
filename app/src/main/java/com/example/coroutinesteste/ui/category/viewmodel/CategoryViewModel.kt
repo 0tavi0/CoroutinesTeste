@@ -17,7 +17,8 @@ class CategoryViewModel(private val repositoryImpl: MainMainRepositoryImpl) : Vi
     AdapterViewModel<Genres> {
     private val _genresResponse = MutableLiveData<ResultWrapper<GenreResponse>>()
     val genreResponse: LiveData<ResultWrapper<GenreResponse>> = _genresResponse
-
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
     private val _listGenres = MutableLiveData<List<Genres>>()
 
     override val items: MutableLiveData<List<Genres>>
@@ -40,16 +41,16 @@ class CategoryViewModel(private val repositoryImpl: MainMainRepositoryImpl) : Vi
 
     private fun showGenericError(error: ResultWrapper.GenericError) {
         when (error.code) {
-            422 -> _genresResponse.value = ResultWrapper.error(error.code)
-            401 -> _genresResponse.value = ResultWrapper.error(error.code)
-            404 -> _genresResponse.value = ResultWrapper.error(error.code)
-            else -> _genresResponse.value = ResultWrapper.error(error.code ?: 1)
+            422 -> _errorMessage.value = "${error.code} - Entidade não processável"
+            401 -> _errorMessage.value = "${error.code} - Chave de API inválida"
+            404 -> _errorMessage.value =
+                "${error.code} - O recurso que você solicitou não pôde ser encontrado."
+            null -> _errorMessage.value = "Erro Genérico"
+            else -> _errorMessage.value = "${error.code} - Erro Genérico"
         }
     }
 
     private fun showGenres(result: GenreResponse) {
-//        listGenres.add(result.list)
-//        Log.e("Lista", ""+listGenres.size)
         _genresResponse.value = ResultWrapper.Success(result)
         _listGenres.value = result.genres
     }

@@ -52,13 +52,15 @@ class CategoryFragment : Fragment() {
             }
             is ResultWrapper.GenericError -> {
                 stopProgress()
-                showError(resultWrapper.code.toString())
-            }
-            is ResultWrapper.Error -> {
-                stopProgress()
-                showError(resultWrapper.errorMessage.toString())
+                errorObserver()
             }
         }
+    }
+
+    private fun errorObserver() {
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
+            showError(it)
+        })
     }
 
     private fun startProgress() {
