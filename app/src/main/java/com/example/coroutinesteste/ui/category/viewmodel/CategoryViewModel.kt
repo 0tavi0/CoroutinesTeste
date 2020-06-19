@@ -24,6 +24,7 @@ class CategoryViewModel(private val repositoryImpl: MainMainRepositoryImpl) : Vi
         get() = _listGenres
 
     fun getGenres() {
+        _genresResponse.value = ResultWrapper.loading()
         CoroutineScope(Dispatchers.Main).launch {
             val response = withContext(Dispatchers.Default) {
                 repositoryImpl.getGenres()

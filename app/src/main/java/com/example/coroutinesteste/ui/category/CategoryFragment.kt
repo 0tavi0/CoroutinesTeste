@@ -1,7 +1,6 @@
 package com.example.coroutinesteste.ui.category
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.coroutinesteste.R
+import com.example.coroutinesteste.base.MessageDialogFragment
 import com.example.coroutinesteste.base.ResultWrapper
 import com.example.coroutinesteste.domain.response.GenreResponse
 import com.example.coroutinesteste.ui.category.adapter.CategoryAdapter
@@ -44,10 +44,29 @@ class CategoryFragment : Fragment() {
     private fun handleResponse(resultWrapper: ResultWrapper<GenreResponse>?) {
         rv_genres.post { adapter.notifyDataSetChanged() }
         when (resultWrapper) {
-            is ResultWrapper.Success -> Log.e("Sucesso", "" + resultWrapper.value.genres)
-            is ResultWrapper.GenericError -> Log.e("Erro", "" + resultWrapper.code)
-            is ResultWrapper.Error -> Log.e("Erro", "" + resultWrapper.errorMessage)
+            is ResultWrapper.Loading -> {
+                startProgress()
+            }
+            is ResultWrapper.Success -> {
+                stopProgress()
+            }
+            is ResultWrapper.GenericError -> {
+                stopProgress()
+                showError(resultWrapper.code.toString())
+            }
+            is ResultWrapper.Error -> {
+                stopProgress()
+                showError(resultWrapper.errorMessage.toString())
+            }
         }
+    }
+
+    private fun startProgress() {
+        pb_category.visibility = View.VISIBLE
+    }
+
+    private fun stopProgress() {
+        pb_category.visibility = View.GONE
     }
 
     private fun setupRecycler() {
@@ -55,5 +74,17 @@ class CategoryFragment : Fragment() {
         rv_genres.adapter = adapter
     }
 
+
+    private fun showError(msg: String) {
+        MessageDialogFragment().let {
+            it.title = "Ops!!"
+            it.message = msg
+            it.onDismiss = View.OnClickListener {
+                viewModel.getGenres()
+            }
+            it.icon = R.drawable.ic_error
+            it.show(requireFragmentManager(), "errorDialog")
+        }
+    }
 
 }

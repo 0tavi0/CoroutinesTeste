@@ -21,6 +21,7 @@ class CategoryMoviesViewModel(private val repositoryImpl: MainMainRepositoryImpl
     override val items: MutableLiveData<List<Result>> get() =  _listItems
 
     fun getMoviesGenres(id:Int){
+        _genresMovieResponse.value = ResultWrapper.loading()
         CoroutineScope(Dispatchers.Main).launch {
             val response = withContext(Dispatchers.IO){
                 repositoryImpl.getMoviesGenres(id)
