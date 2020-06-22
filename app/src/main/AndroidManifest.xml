@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".ui.home.DetailMoviePopularActivity" />
         <activity android:name=".ui.category.DetailsMoviesActivity" />
+        <activity android:name=".ui.search.DetailsMovies" />
     </application>
 
 </manifest>

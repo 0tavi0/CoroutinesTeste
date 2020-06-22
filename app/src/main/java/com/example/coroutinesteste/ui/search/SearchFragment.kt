@@ -6,16 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coroutinesteste.R
 import com.example.coroutinesteste.base.MessageDialogFragment
+import com.example.coroutinesteste.ui.search.adapter.SearchAdapter
 import com.example.coroutinesteste.ui.search.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.search_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
-
     private val viewModel: SearchViewModel by viewModel()
+    private val adapter: SearchAdapter by lazy {
+        SearchAdapter(viewModel)
+    }
+    private val linearLayoutManager: GridLayoutManager by lazy {
+        GridLayoutManager(context, 2)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,18 +36,12 @@ class SearchFragment : Fragment() {
         setupListener()
         observers()
         errorObservers()
+        setupRecycler()
     }
 
     private fun observers() {
         viewModel.listMoviesTrendingResult.observe(viewLifecycleOwner, Observer {
-            it.let {
-                with(recycler_search) {
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    setHasFixedSize(true)
-                 //   adapter = SearchAdapter(it)
-                }
-            }
+            recycler_search.post { adapter.notifyDataSetChanged() }
         })
     }
 
@@ -69,6 +70,11 @@ class SearchFragment : Fragment() {
             }
             viewModel.searchMovie(query)
         }
+    }
+
+    private fun setupRecycler() {
+        recycler_search.layoutManager = linearLayoutManager
+        recycler_search.adapter = adapter
     }
 
 }

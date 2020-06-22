@@ -3,6 +3,7 @@ package com.example.coroutinesteste.ui.search.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.coroutinesteste.base.AdapterViewModel
 import com.example.coroutinesteste.base.ResultWrapper
 import com.example.coroutinesteste.domain.response.MoviesResponse
 import com.example.coroutinesteste.domain.response.Result
@@ -12,11 +13,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SearchViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewModel() {
+class SearchViewModel(private val repositoryImpl: MainMainRepositoryImpl) : ViewModel(), AdapterViewModel<Result> {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
     private val _listResultSearch = MutableLiveData<List<Result>>()
     val listMoviesTrendingResult: LiveData<List<Result>> = _listResultSearch
+
+    override val items: MutableLiveData<List<Result>> = _listResultSearch
 
     fun searchMovie(query: String) {
         CoroutineScope(Dispatchers.Main).launch {
@@ -50,6 +53,7 @@ class SearchViewModel(private val repositoryImpl: MainMainRepositoryImpl) : View
     private fun showSuccess(result: MoviesResponse) {
         _listResultSearch.value = result.results
     }
+
 }
 
 
